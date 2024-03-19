@@ -1,15 +1,27 @@
-import List from "@/components/List/List";
+'use client'
+import Board from "@/components/Board/Board";
+import { BoardType } from "@/types";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [boards, setBoards] = useState<BoardType[]>([]);
+
+  useEffect(() => {
+    async function fetchBoards() {
+      const res = await fetch('http://localhost:8080/boards');
+      const data = await res.json();
+      setBoards(data as BoardType[]);
+    }
+    fetchBoards();
+  }, []);
+
   return (
-    <main className="flex pt-10 pl-10 overflow-auto">
-      <div className="flex justify-start overflow-x-auto pb-10 gap-4">
-        <List listTitle="依頼書待ち/割り振り前" />
-        <List listTitle="依頼書来た/割り振り済" />
-        <List listTitle="サイト文章チェック中" />
-        <List listTitle="サイト文章完成" />
-        <List listTitle="制作中" />
-      </div>
-    </main>
+    <>
+      {
+        boards.map(board =>
+          <Board key={board.id} id={board.id} boardName={board.boardName} />
+        )
+      }
+    </>
   );
 }

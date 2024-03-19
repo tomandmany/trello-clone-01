@@ -10,21 +10,21 @@ const DropDownMenuItem = ({ itemName, type }: DropDownMenuItemProps) => {
         return (
             <>
                 {/* <img src="" alt="boardIcon" /> */}
-                <div className="flex items-center gap-4 text-sm p-2 rounded-lg hover:bg-zinc-700">
+                <button className="flex items-center gap-4 text-sm p-2 rounded-lg hover:bg-zinc-700">
                     <div className="w-10 h-10 bg-white"></div>
                     {itemName}
-                </div>
+                </button>
             </>
         )
     } else if (type === 'star') {
         return (
             <>
                 {/* <img src="" alt="boardIcon" /> */}
-                <div className="flex items-center gap-2 text-sm p-2 rounded-lg hover:bg-zinc-700">
+                <button className="flex items-center gap-2 text-sm p-2 rounded-lg hover:bg-zinc-700">
                     <img className="w-10" src="/bg.jpg" alt="" />
                     {itemName}
                     <StarButton />
-                </div>
+                </button>
             </>
         )
     }

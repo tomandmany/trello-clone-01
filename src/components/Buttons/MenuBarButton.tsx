@@ -84,12 +84,12 @@ const MenuBarButton = ({ menuName, type, openMenu, handleOpenMenu }: MenuBarButt
                         <>
                             <button
                                 onClick={handleDropDown}
-                                className="relative bg-gray-600 hover:bg-gray-700 px-2 my-3 rounded flex items-center gap-2"
+                                className="bg-gray-600 hover:bg-gray-700 px-2 my-3 rounded flex items-center gap-2"
                             >
                                 {menuName}
                                 <UpArrow />
                             </button>
-                            <div className="absolute left-44 top-14 bg-zinc-800 w-max max-h-[93vh] z-10 overflow-y-auto rounded-lg py-3">
+                            <div className="fixed left-0 top-14 bg-zinc-800 w-max h-[93vh] z-10 overflow-y-auto rounded-lg py-3">
                                 {renderDropDownMenu()}
                             </div>
                         </>

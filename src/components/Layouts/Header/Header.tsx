@@ -1,7 +1,7 @@
 // Header.tsx
 'use client'
 import { useState } from "react";
-import MenuBarButton from "../Buttons/MenuBarButton";
+import MenuBarButton from "../../Buttons/MenuBarButton";
 
 const Header = () => {
     const [openMenu, setOpenMenu] = useState<'workspace' | 'star' | null>(null);
@@ -18,7 +18,6 @@ const Header = () => {
                 <MenuBarButton menuName='お気に入り' type='star' openMenu={openMenu} handleOpenMenu={handleOpenMenu} />
             </div>
             <div className="flex gap-8">
-                <button>検索</button>
                 <button>通知</button>
                 <button>アカウント</button>
                 <button>設定</button>
