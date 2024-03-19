@@ -18,7 +18,7 @@ export default function BoardPage() {
           return;
         }
 
-        const boardRes = await fetch(`http://localhost:8080/boards/${boardId}`);
+        const boardRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boards/${boardId}`);
         if (!boardRes.ok) {
           // APIのレスポンスが正常でない場合
           console.error('Failed to fetch the board');

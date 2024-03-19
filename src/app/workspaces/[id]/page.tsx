@@ -19,7 +19,7 @@ export default function WorkspacePage() {
                     return;
                 }
 
-                const workspaceRes = await fetch(`http://localhost:8080/workspaces/${workspaceId}`);
+                const workspaceRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/workspaces/${workspaceId}`);
                 if (!workspaceRes.ok) {
                     console.error('Failed to fetch the workspace');
                     setWorkspace(undefined);
@@ -30,7 +30,7 @@ export default function WorkspacePage() {
 
                 // ワークスペースに属する全ボードの詳細を取得します。
                 const boardsData = await Promise.all(workspaceData.boards.map(async (board: BoardType) => {
-                    const response = await fetch(`http://localhost:8080/boards/${board.id}`);
+                    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boards/${board.id}`);
                     return response.json();
                 }));
 

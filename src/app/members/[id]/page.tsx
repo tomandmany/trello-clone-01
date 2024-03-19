@@ -21,7 +21,7 @@ export default function MemberPage() {
           return;
         }
 
-        const memberRes = await fetch(`http://localhost:8080/members/${memberId}`);
+        const memberRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/members/${memberId}`);
         if (!memberRes.ok) {
           console.error('Failed to fetch the member');
           setMember(undefined);
@@ -30,7 +30,7 @@ export default function MemberPage() {
         const memberData = await memberRes.json();
         setMember(memberData);
 
-        const workspacesRes = await fetch(`http://localhost:8080/workspaces/participants/?ids=${memberId}`);
+        const workspacesRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/workspaces/participants/?ids=${memberId}`);
         if (!workspacesRes.ok) {
           console.error('Failed to fetch the workspaces');
           setMemberWorkspaces([]);
@@ -39,7 +39,7 @@ export default function MemberPage() {
         const workspacesData = await workspacesRes.json();
         setMemberWorkspaces(workspacesData);
 
-        const boardsRes = await fetch(`http://localhost:8080/boards/participants/?ids=${memberId}`);
+        const boardsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boards/participants/?ids=${memberId}`);
         if (!boardsRes.ok) {
           console.error('Failed to fetch the boards');
           setMemberBoards([]);

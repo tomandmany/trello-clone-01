@@ -8,7 +8,7 @@ export default function Home() {
 
   useEffect(() => {
     async function fetchBoards() {
-      const res = await fetch('http://localhost:8080/boards');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/boards`);
       const data = await res.json();
       setBoards(data as BoardType[]);
     }
