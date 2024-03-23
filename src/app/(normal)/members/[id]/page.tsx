@@ -195,7 +195,7 @@ export default function MemberPage() {
           ) : (
             <button
               onClick={() => setIsBoardAdding(true)}
-              className="w-[300px] h-[100px] flex items-center justify-center bg-gray-700 text-gray-200 hover:bg-gray-600"
+              className="min-w-[300px] h-[100px] flex items-center justify-center bg-gray-700 text-gray-200 hover:bg-gray-600"
             >
               ボードを追加
             </button>

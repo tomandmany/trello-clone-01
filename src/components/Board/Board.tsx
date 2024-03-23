@@ -79,7 +79,7 @@ function Board({ id, boardName }: BoardType) {
                     {isAdding ? (
                         <form
                             onSubmit={addList}
-                            className="bg-gray-900 rounded-lg min-w-[300px] max-w-[300px] text-left py-3 flex flex-col gap-2 px-2 hover:brightness-110 h-fit"
+                            className="bg-gray-900 rounded-lg min-w-[300px] text-left py-3 flex flex-col gap-2 px-2 hover:brightness-110 h-fit"
                         >
                             <input
                                 type="text"
@@ -101,7 +101,7 @@ function Board({ id, boardName }: BoardType) {
                     ) : (
                         <button
                             onClick={() => setIsAdding(true)}
-                            className="flex items-center justify-left gap-2 py-1 pl-2 bg-gray-400/50 text-gray-200 hover:bg-gray-400/70 rounded-lg w-[300px] h-[100px]"
+                            className="flex items-center justify-left gap-2 py-1 pl-2 bg-gray-400/50 text-gray-200 hover:bg-gray-400/70 rounded-lg h-[100px] min-w-[300px]"
                         >
                             <PlusIcon />
                             リストを追加
