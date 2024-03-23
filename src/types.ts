@@ -1,10 +1,10 @@
 export type MemberType = {
-  id?: string;
+  id: string;
   memberName: string;
 }
 
 export type WorkspaceType = {
-  id?: string;
+  id: string;
   workspaceName: string;
   iconImgSrc?: string;
   boards: BoardType[];
@@ -12,20 +12,20 @@ export type WorkspaceType = {
 }
 
 export type BoardType = {
-  id?: string;
+  id: string;
   boardName: string;
   bgImgSrc?: string;
   lists?: ListType[];
 }
 
 export type ListType = {
-  id?: string;
+  id: string;
   listName: string;
   cards?: CardType[];
 }
 
 export type CardType = {
-  id?: string;
+  id: string;
   cardName: string;
   description?: string;
   comments?: Comment[];
@@ -35,7 +35,7 @@ export type CardType = {
 };
 
 export type CommentType = {
-  id?: string;
+  id: string;
   sender: string;
   comment: string;
 };

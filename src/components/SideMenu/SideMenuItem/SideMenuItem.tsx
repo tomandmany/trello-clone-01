@@ -1,20 +1,19 @@
-type SideMenuItemProps = {
-    boardName: string;
-}
+// SideMenuItem.tsx
+import { BoardType } from '@/types';
+import Image from 'next/image';
+import Link from 'next/link';
 
-const SideMenuItem = ({ boardName }: SideMenuItemProps) => {
+const SideMenuItem = ({ id, boardName, bgImgSrc, isActive }: BoardType & { isActive: boolean }) => {
     return (
-        <div className="flex items-center px-3 py-2 hover:bg-gray-600 hover:cursor-pointer">
-            {/* <img src="" alt="boardIcon" /> */}
-            <div className="flex items-center gap-2 text-sm">
-                <div className="w-6 h-6 bg-white"></div>
-                <h2>{boardName}</h2>
+        <Link href={`/boards/${id}`}>
+            <div className={`flex items-center gap-2 py-2 px-3 hover:bg-gray-700 text-sm ${isActive ? 'bg-gray-500' : ''}`}>
+                <div className="w-[32px] aspect-square relative">
+                    <Image src={`/${bgImgSrc}`} alt={boardName} fill priority />
+                </div>
+                {boardName}
             </div>
-            <button>
+        </Link>
+    );
+};
 
-            </button>
-        </div>
-    )
-}
-
-export default SideMenuItem
+export default SideMenuItem;

@@ -1,69 +1,77 @@
-// MenuBarButton.tsx
+// components/Buttons/MenuBarButton.tsx
+'use client'
+import { useState, useEffect, useRef } from 'react';
+import { WorkspaceType } from "@/types";
 import DropDownMenuItem from "../DropDownMenuItem/DropDownMenuItem"
 import { DownArrow, UpArrow } from "../Icons/ArrowIcon/ArrowIcon"
 
 type MenuBarButtonProps = {
     menuName: string;
     type: 'workspace' | 'star';
-    openMenu: 'workspace' | 'star' | null;
-    handleOpenMenu: (type: 'workspace' | 'star') => void;
 }
 
-const MenuBarButton = ({ menuName, type, openMenu, handleOpenMenu }: MenuBarButtonProps) => {
+const MenuBarButton = ({ menuName, type }: MenuBarButtonProps) => {
+    const [workspaces, setWorkspaces] = useState<WorkspaceType[]>([]);
+    const [openMenu, setOpenMenu] = useState<'workspace' | 'star' | null>(null);
+    const dropDownRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const fetchWorkspaces = async () => {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/workspaces`);
+            const data = await res.json();
+            setWorkspaces(data);
+        }
+        fetchWorkspaces();
+
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropDownRef.current && !dropDownRef.current.contains(event.target as Node)) {
+                setOpenMenu(null);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     const isOpen = openMenu === type;
 
     const handleDropDown = () => {
-        handleOpenMenu(type);
+        setOpenMenu(isOpen ? null : type);
     }
-
+    
     const workSpaceDropDownMenu = () => {
         return (
-            <>
-                <div className="pb-3 px-4 border-b">
-                    <h4 className="px-2 py-3">現在のワークスペース</h4>
-                    <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                </div>
+            <div ref={dropDownRef} className="fixed left-0 top-14 bg-zinc-800 w-max h-[93vh] z-10 overflow-y-auto rounded-lg py-3">
                 <div className="pb-3 px-4">
                     <h4 className="px-2 pt-4 pb-2">ワークスペース</h4>
-                    <div className="flex flex-col gap-2">
-                        <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                        <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                        <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                        <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                        <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                        <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                        <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                        <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                        <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                        <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
+                    <div className="flex flex-col gap-2 min-w-[300px]">
+                        {workspaces.map((workspace: WorkspaceType) => (
+                            <DropDownMenuItem
+                                key={workspace.id}
+                                workspace={workspace}
+                                setOpenMenu={setOpenMenu}
+                            />
+                        ))}
                     </div>
                 </div>
-            </>
+            </div>
         )
     }
 
     const starDropDownMenu = () => {
         return (
-            <div className="px-2">
-                <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
-                <DropDownMenuItem type={type} itemName="第140回明大祭実行委員会制作局制作物チェック" />
+            <div ref={dropDownRef} className="fixed left-0 top-14 bg-zinc-800 w-max h-[93vh] z-10 overflow-y-auto rounded-lg py-3">
+                <div className="px-2">
+                    {workspaces.map((workspace: WorkspaceType) => (
+                        <DropDownMenuItem
+                            key={workspace.id}
+                            workspace={workspace}
+                            setOpenMenu={setOpenMenu}
+                        />
+                    ))}
+                </div>
             </div>
         )
     }
@@ -84,21 +92,19 @@ const MenuBarButton = ({ menuName, type, openMenu, handleOpenMenu }: MenuBarButt
                         <>
                             <button
                                 onClick={handleDropDown}
-                                className="bg-gray-600 hover:bg-gray-700 px-2 my-3 rounded flex items-center gap-2"
+                                className="bg-gray-600 hover:bg-gray-700 p-2 rounded flex items-center gap-2"
                             >
                                 {menuName}
                                 <UpArrow />
                             </button>
-                            <div className="fixed left-0 top-14 bg-zinc-800 w-max h-[93vh] z-10 overflow-y-auto rounded-lg py-3">
-                                {renderDropDownMenu()}
-                            </div>
+                            {renderDropDownMenu()}
                         </>
                     )
                     :
                     (
                         <button
                             onClick={handleDropDown}
-                            className="hover:bg-gray-600 px-2 my-3 rounded flex items-center gap-2"
+                            className="hover:bg-gray-600 p-2 rounded flex items-center gap-2"
                         >
                             {menuName}
                             <DownArrow />
@@ -109,4 +115,4 @@ const MenuBarButton = ({ menuName, type, openMenu, handleOpenMenu }: MenuBarButt
     )
 }
 
-export default MenuBarButton
+export default MenuBarButton;

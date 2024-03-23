@@ -1,33 +1,36 @@
-import StarButton from "../Buttons/StarButton";
+// components/DropDownMenuItem/DropDownMenuItem.tsx
+import Image from "next/image";
+import { WorkspaceType } from "@/types";
+import Link from "next/link";
 
 type DropDownMenuItemProps = {
-    itemName: string;
-    type: 'workspace' | 'star';
+    workspace: WorkspaceType;
+    setOpenMenu: React.Dispatch<React.SetStateAction<'workspace' | 'star' | null>>;
 }
 
-const DropDownMenuItem = ({ itemName, type }: DropDownMenuItemProps) => {
-    if (type === 'workspace') {
-        return (
-            <>
-                {/* <img src="" alt="boardIcon" /> */}
-                <button className="flex items-center gap-4 text-sm p-2 rounded-lg hover:bg-zinc-700">
-                    <div className="w-10 h-10 bg-white"></div>
-                    {itemName}
-                </button>
-            </>
-        )
-    } else if (type === 'star') {
-        return (
-            <>
-                {/* <img src="" alt="boardIcon" /> */}
-                <button className="flex items-center gap-2 text-sm p-2 rounded-lg hover:bg-zinc-700">
-                    <img className="w-10" src="/bg.jpg" alt="" />
-                    {itemName}
-                    <StarButton />
-                </button>
-            </>
-        )
+const DropDownMenuItem = ({ workspace, setOpenMenu }: DropDownMenuItemProps) => {
+    const handleClick = () => {
+        setOpenMenu(null);
     }
+
+    return (
+        <Link href={`/workspaces/${workspace.id}`} onClick={handleClick}>
+            <div className="flex items-center gap-4 text-sm p-2 w-full rounded-lg hover:bg-zinc-700">
+                <div className="w-[30px] h-[30px] relative">
+                    <Image
+                        src={`/${workspace.iconImgSrc}`}
+                        alt={workspace.workspaceName}
+                        fill
+                        className="rounded"
+                        style={{ objectFit: "cover" }}
+                        priority
+                        sizes="30px"
+                    />
+                </div>
+                {workspace.workspaceName}
+            </div>
+        </Link>
+    )
 }
 
-export default DropDownMenuItem
+export default DropDownMenuItem;

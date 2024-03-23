@@ -4,8 +4,10 @@
 
 body {
     background-image: url('/bg.jpg');
+    /* background-image: url('https://picsum.photos/1600/1000'); */
     background-size: cover;
     background-position: center;
+    /* background-color: rgb(212, 212, 212); */
 }
 
 ::-webkit-scrollbar {
